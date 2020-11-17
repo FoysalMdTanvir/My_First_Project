@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Musician(models.Model):
     # id = models.AutoField(Primary_key=True)
     first_name = models.CharField("Name Of First", max_length=50)
@@ -14,15 +15,16 @@ class Musician(models.Model):
 
 class Album(models.Model):
     # id = models.AutoField(Primary_key=True)
-    artist = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    artist = models.ForeignKey(
+        Musician, on_delete=models.CASCADE, related_name='album_list')
     name = models.CharField(max_length=100)
     release_date = models.DateField()
     rating = (
-    (1, "Worst"),
-    (2, "Bad"),
-    (3, "Not Bad"),
-    (4, "Good"),
-    (5, "Excelent"),
+        (1, "Worst"),
+        (2, "Bad"),
+        (3, "Not Bad"),
+        (4, "Good"),
+        (5, "Excelent"),
     )
     num_stars = models.IntegerField(choices=rating)
 

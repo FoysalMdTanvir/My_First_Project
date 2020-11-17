@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView, DetailView
+from first_app import models
 
 # Create your views here.
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    context_object_name = 'musician_list'
+    model = models.Musician
     template_name = 'first_app/index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['sample_text_1'] = "Sample Text 1"
-        context['sample_text_2'] = 'Sample Text 2'
-        return context
+
+class MusicianDetail(DetailView):
+    context_object_name = 'musician'
+    model = models.Musician
+    template_name = 'first_app/musician_details.html'
